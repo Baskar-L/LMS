@@ -13,7 +13,7 @@ import {
 const CourseTable = ({
     courses,
     onDelete,
-     onEdit,
+    onEdit,
 }) => {
     return (
         <div className="table-wrapper">
@@ -34,6 +34,10 @@ const CourseTable = ({
 
                         <th className="table-th">
                             Duration
+                        </th>
+
+                        <th className="table-th">
+                            Description
                         </th>
 
                         <th className="table-th">
@@ -70,6 +74,12 @@ const CourseTable = ({
                                 {course.category}
                             </td>
 
+                            <td className="table-td max-w-xs">
+                               
+                                    {course.description}
+                              
+                            </td>
+
                             <td className="table-td">
                                 {course.duration}
                             </td>
@@ -103,7 +113,7 @@ const CourseTable = ({
                                         <FiEdit />
                                     </button>
 
-                              
+
 
                                     <button
                                         onClick={() =>
