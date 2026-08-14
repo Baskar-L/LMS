@@ -37,14 +37,14 @@ const AuthSuccess = () => {
                 console.log("Local User:", localStorage.getItem("user"));
                 console.log("Local Token:", localStorage.getItem("token"));
 
-                navigate("/", { replace: true });
+                navigate("/dashboard", { replace: true });
             } catch (error) {
                 console.error(error);
 
                 localStorage.removeItem("token");
                 localStorage.removeItem("user");
 
-                navigate("/login", { replace: true });
+                navigate("/", { replace: true });
             }
         };
 
