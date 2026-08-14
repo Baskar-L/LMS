@@ -15,29 +15,29 @@ export const AuthProvider = ({
 }) => {
 
   const [user, setUser] = useState(() => {
-  try {
-    const storedUser = localStorage.getItem("user");
+    try {
+      const storedUser = localStorage.getItem("user");
 
-    if (
-      !storedUser ||
-      storedUser === "undefined" ||
-      storedUser === "null"
-    ) {
+      if (
+        !storedUser ||
+        storedUser === "undefined" ||
+        storedUser === "null"
+      ) {
+        return null;
+      }
+
+      return JSON.parse(storedUser);
+    } catch (error) {
+      console.error(
+        "Invalid user data in localStorage",
+        error
+      );
+
+      localStorage.removeItem("user");
+
       return null;
     }
-
-    return JSON.parse(storedUser);
-  } catch (error) {
-    console.error(
-      "Invalid user data in localStorage",
-      error
-    );
-
-    localStorage.removeItem("user");
-
-    return null;
-  }
-});
+  });
 
   const [loading, setLoading] =
     useState(true);
@@ -45,47 +45,48 @@ export const AuthProvider = ({
   const token =
     localStorage.getItem("token");
 
-const fetchUser = async () => {
-  try {
-    const response = await getProfile();
 
-    const merchant =
-      response.data.data;
+  const fetchUser = async () => {
+    try {
+      const response = await getProfile();
 
-    setUser(merchant);
+      const merchant =
+        response.data;
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify(merchant)
+      setUser(merchant);
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(merchant)
+      );
+    } catch (error) {
+      console.error(error);
+      logout();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log(
+      "Stored Token:",
+      localStorage.getItem("token")
     );
-  } catch (error) {
-    console.error(error);
-    logout();
-  } finally {
-    setLoading(false);
-  }
-};
 
-useEffect(() => {
-  console.log(
-    "Stored Token:",
-    localStorage.getItem("token")
-  );
+    console.log(
+      "Stored User:",
+      localStorage.getItem("user")
+    );
 
-  console.log(
-    "Stored User:",
-    localStorage.getItem("user")
-  );
+    const token =
+      localStorage.getItem("token");
 
-  const token =
-    localStorage.getItem("token");
-
-  if (token) {
-    fetchUser();
-  } else {
-    setLoading(false);
-  }
-}, []);
+    if (token) {
+      fetchUser();
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
   const login = (
     token,
