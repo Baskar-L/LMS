@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import {AuthProvider,} from "./context/AuthContext";
 import {LayoutProvider,} from "./context/LayoutContext";
+import { ToastProvider,} from "./context/ToastContext";
 
 
 import "@shopify/polaris/build/esm/styles.css";
@@ -17,9 +18,11 @@ ReactDOM.createRoot(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
+          <ToastProvider>
         <LayoutProvider>
           <App />
         </LayoutProvider>
+        </ToastProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

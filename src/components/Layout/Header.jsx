@@ -58,7 +58,7 @@ const Header = () => {
             <FiMenu size={24} />
           </button>
 
-          <h1 className="font-semibold">
+          <h1 className="font-semibold lg:hidden">
             Shopify LMS
           </h1>
         </div>
@@ -108,7 +108,7 @@ const Header = () => {
           setOpenLogout(false)
         }
         title="Logout"
-        size="sm"
+        size="md"
       >
         <div className="space-y-4">
           <p>

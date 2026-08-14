@@ -3,36 +3,52 @@ import {
   useState,
 } from "react";
 
-import {
-  Link,
-} from "react-router-dom";
-
 import AppLayout from "../../components/Layout/AppLayout";
 
 import CourseTable from "../../components/Courses/CourseTable";
+
+import CourseModal from "../../components/Courses/CourseModal";
+
+import ConfirmModal from "../../components/Common/ConfirmModal";
 
 import {
   getCourses,
   deleteCourse,
 } from "../../api/courseApi";
 
-import ConfirmModal from "../../components/Common/ConfirmModal";
+import { useToast } from "../../context/ToastContext";
 
 const Courses = () => {
+  const { showToast } =
+    useToast();
+
   const [courses, setCourses] =
     useState([]);
 
   const [deleteId, setDeleteId] =
     useState(null);
 
+  const [openModal, setOpenModal] =
+    useState(false);
+
+  const [editId, setEditId] =
+    useState(null);
+
   const fetchCourses =
     async () => {
-      const res =
-        await getCourses();
+      try {
+        const res =
+          await getCourses();
 
-      setCourses(
-        res.data || []
-      );
+        setCourses(
+          res.data || []
+        );
+      } catch {
+        showToast(
+          "error",
+          "Failed to load courses"
+        );
+      }
     };
 
   useEffect(() => {
@@ -41,36 +57,71 @@ const Courses = () => {
 
   const handleDelete =
     async () => {
-      await deleteCourse(
-        deleteId
-      );
+      try {
+        await deleteCourse(
+          deleteId
+        );
 
-      setDeleteId(null);
+        showToast(
+          "success",
+          "Course deleted successfully"
+        );
 
-      fetchCourses();
+        fetchCourses();
+
+        setDeleteId(null);
+      } catch {
+        showToast(
+          "error",
+          "Delete failed"
+        );
+      }
     };
 
   return (
     <AppLayout>
+
       <div className="page-container">
+
         <div className="flex justify-between items-center">
+
           <h1 className="page-title">
             Courses
           </h1>
 
-          <Link
-            to="/courses/add"
+          <button
+            onClick={() => {
+              setEditId(null);
+              setOpenModal(true);
+            }}
             className="primary-btn"
           >
             Add Course
-          </Link>
+          </button>
+
         </div>
 
         <CourseTable
           courses={courses}
           onDelete={setDeleteId}
+          onEdit={(id) => {
+            setEditId(id);
+            setOpenModal(true);
+          }}
         />
+
       </div>
+
+      <CourseModal
+        isOpen={openModal}
+        courseId={editId}
+        onClose={() =>
+          setOpenModal(false)
+        }
+        refreshCourses={
+          fetchCourses
+        }
+      />
 
       <ConfirmModal
         isOpen={!!deleteId}
@@ -83,6 +134,7 @@ const Courses = () => {
           setDeleteId(null)
         }
       />
+
     </AppLayout>
   );
 };

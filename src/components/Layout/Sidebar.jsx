@@ -100,7 +100,7 @@ const Sidebar = () => {
           "
         >
           <h2 className="font-bold text-xl">
-            LMS Admin
+            Shopify LMS
           </h2>
 
           <button
