@@ -106,12 +106,18 @@ const Courses = () => {
 
                 </div>
 
+
+
+
                 <CourseTable
                     courses={courses}
                     onDelete={setDeleteId}
                     onEdit={(id) => {
                         setEditId(id);
                         setOpenModal(true);
+                    }}
+                    onView={(id) => {
+                        setViewId(id);
                     }}
                 />
 

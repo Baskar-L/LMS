@@ -9,6 +9,8 @@ import AppLayout from "../../components/Layout/AppLayout";
 
 import EnrollmentTable from "../../components/Enrollments/EnrollmentTable";
 
+import EnrollmentModal from "../../components/Enrollments/EnrollmentModal";
+
 import ViewEnrollmentModal from "../../components/Enrollments/ViewEnrollmentModal";
 
 import ConfirmModal from "../../components/Common/ConfirmModal";

@@ -112,14 +112,14 @@ const CourseTable = ({
                                             onView(course._id)
                                         }
                                     >
-                                        <FiEye />
+                                        <FiEye size={16} className="text-[#007bff]" />
                                     </button>
                                     <button
                                         onClick={() =>
                                             onEdit(course._id)
                                         }
                                     >
-                                        <FiEdit />
+                                        <FiEdit size={16} className="text-[#007bff]" />
                                     </button>
 
 
@@ -131,7 +131,7 @@ const CourseTable = ({
                                             )
                                         }
                                     >
-                                        <FiTrash2 />
+                                        <FiTrash2 size={16} className="text-red-400" />
                                     </button>
                                 </div>
                             </td>
