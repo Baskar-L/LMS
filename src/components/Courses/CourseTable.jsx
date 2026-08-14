@@ -14,11 +14,12 @@ const CourseTable = ({
     courses,
     onDelete,
     onEdit,
+    onView,
 }) => {
     return (
         <div className="table-wrapper">
             <table className="common-table ">
-                <thead className="table-header bg-[#254593]">
+                <thead className="table-header ">
                     <tr>
                         <th className="table-th">
                             Title
@@ -75,9 +76,9 @@ const CourseTable = ({
                             </td>
 
                             <td className="table-td max-w-xs">
-                               
-                                    {course.description}
-                              
+
+                                {course.description}
+
                             </td>
 
                             <td className="table-td">
@@ -105,6 +106,14 @@ const CourseTable = ({
 
                             <td className="table-td">
                                 <div className="flex gap-3">
+
+                                    <button
+                                        onClick={() =>
+                                            onView(course._id)
+                                        }
+                                    >
+                                        <FiEye />
+                                    </button>
                                     <button
                                         onClick={() =>
                                             onEdit(course._id)

@@ -1,6 +1,6 @@
 import {
-  useEffect,
-  useState,
+    useEffect,
+    useState,
 } from "react";
 
 import AppLayout from "../../components/Layout/AppLayout";
@@ -10,133 +10,147 @@ import CourseTable from "../../components/Courses/CourseTable";
 import CourseModal from "../../components/Courses/CourseModal";
 
 import ConfirmModal from "../../components/Common/ConfirmModal";
+import ViewCourseModal from "../../components/Courses/ViewCourseModal";
 
 import {
-  getCourses,
-  deleteCourse,
+    getCourses,
+    deleteCourse,
 } from "../../api/courseApi";
 
 import { useToast } from "../../context/ToastContext";
 
 const Courses = () => {
-  const { showToast } =
-    useToast();
+    const { showToast } =
+        useToast();
 
-  const [courses, setCourses] =
-    useState([]);
+    const [courses, setCourses] =
+        useState([]);
 
-  const [deleteId, setDeleteId] =
-    useState(null);
+    const [deleteId, setDeleteId] =
+        useState(null);
 
-  const [openModal, setOpenModal] =
-    useState(false);
+    const [openModal, setOpenModal] =
+        useState(false);
 
-  const [editId, setEditId] =
-    useState(null);
+    const [editId, setEditId] =
+        useState(null);
 
-  const fetchCourses =
-    async () => {
-      try {
-        const res =
-          await getCourses();
 
-        setCourses(
-          res.data || []
-        );
-      } catch {
-        showToast(
-          "error",
-          "Failed to load courses"
-        );
-      }
-    };
+    const [viewId, setViewId] =
+        useState(null);
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
+    const fetchCourses =
+        async () => {
+            try {
+                const res =
+                    await getCourses();
 
-  const handleDelete =
-    async () => {
-      try {
-        await deleteCourse(
-          deleteId
-        );
+                setCourses(
+                    res.data || []
+                );
+            } catch {
+                showToast(
+                    "error",
+                    "Failed to load courses"
+                );
+            }
+        };
 
-        showToast(
-          "success",
-          "Course deleted successfully"
-        );
-
+    useEffect(() => {
         fetchCourses();
+    }, []);
 
-        setDeleteId(null);
-      } catch {
-        showToast(
-          "error",
-          "Delete failed"
-        );
-      }
-    };
+    const handleDelete =
+        async () => {
+            try {
+                await deleteCourse(
+                    deleteId
+                );
 
-  return (
-    <AppLayout>
+                showToast(
+                    "success",
+                    "Course deleted successfully"
+                );
 
-      <div className="page-container">
+                fetchCourses();
 
-        <div className="flex justify-between items-center">
+                setDeleteId(null);
+            } catch {
+                showToast(
+                    "error",
+                    "Delete failed"
+                );
+            }
+        };
 
-          <h1 className="page-title">
-            Courses
-          </h1>
+    return (
+        <AppLayout>
 
-          <button
-            onClick={() => {
-              setEditId(null);
-              setOpenModal(true);
-            }}
-            className="primary-btn"
-          >
-            Add Course
-          </button>
+            <div className="page-container">
 
-        </div>
+                <div className="flex justify-between items-center">
 
-        <CourseTable
-          courses={courses}
-          onDelete={setDeleteId}
-          onEdit={(id) => {
-            setEditId(id);
-            setOpenModal(true);
-          }}
-        />
+                    <h1 className="page-title">
+                        Courses
+                    </h1>
 
-      </div>
+                    <button
+                        onClick={() => {
+                            setEditId(null);
+                            setOpenModal(true);
+                        }}
+                        className="primary-btn"
+                    >
+                        Add Course
+                    </button>
 
-      <CourseModal
-        isOpen={openModal}
-        courseId={editId}
-        onClose={() =>
-          setOpenModal(false)
-        }
-        refreshCourses={
-          fetchCourses
-        }
-      />
+                </div>
 
-      <ConfirmModal
-        isOpen={!!deleteId}
-        title="Delete Course"
-        message="Are you sure?"
-        onConfirm={
-          handleDelete
-        }
-        onCancel={() =>
-          setDeleteId(null)
-        }
-      />
+                <CourseTable
+                    courses={courses}
+                    onDelete={setDeleteId}
+                    onEdit={(id) => {
+                        setEditId(id);
+                        setOpenModal(true);
+                    }}
+                />
 
-    </AppLayout>
-  );
+            </div>
+
+            <CourseModal
+                isOpen={openModal}
+                courseId={editId}
+                onClose={() =>
+                    setOpenModal(false)
+                }
+                refreshCourses={
+                    fetchCourses
+                }
+            />
+
+            <ConfirmModal
+                isOpen={!!deleteId}
+                title="Delete Course"
+                message="Are you sure?"
+                onConfirm={
+                    handleDelete
+                }
+                onCancel={() =>
+                    setDeleteId(null)
+                }
+            />
+
+
+            <ViewCourseModal
+                isOpen={!!viewId}
+                courseId={viewId}
+                onClose={() =>
+                    setViewId(null)
+                }
+            />
+
+        </AppLayout>
+    );
 };
 
 export default Courses;
