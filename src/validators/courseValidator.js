@@ -7,11 +7,7 @@ export const createCourseValidator = [
       "Course title is required"
     ),
 
-  body("description")
-    .notEmpty()
-    .withMessage(
-      "Description is required"
-    ),
+
 
   body("instructorName")
     .notEmpty()
