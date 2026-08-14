@@ -4,9 +4,16 @@ import {
   FiUsers,
   FiClipboard,
   FiShoppingBag,
+  FiX,
 } from "react-icons/fi";
 
-import { NavLink } from "react-router-dom";
+import {
+  NavLink,
+} from "react-router-dom";
+
+import {
+  useLayout,
+} from "../../context/LayoutContext";
 
 const menus = [
   {
@@ -37,41 +44,108 @@ const menus = [
 ];
 
 const Sidebar = () => {
+  const {
+    sidebarOpen,
+    setSidebarOpen,
+  } = useLayout();
+
   return (
-    <aside className="w-64 bg-[#254593] text-white min-h-screen fixed left-0 top-0">
-      <div className="h-16 flex items-center px-6 border-b border-white/20">
-        <h2 className="text-xl font-bold">
-          LMS Admin
-        </h2>
-      </div>
+    <>
+      {sidebarOpen && (
+        <div
+          onClick={() =>
+            setSidebarOpen(false)
+          }
+          className="
+            fixed
+            inset-0
+            bg-black/50
+            z-40
+            lg:hidden
+          "
+        />
+      )}
 
-      <nav className="mt-5 px-3">
-        {menus.map((menu) => (
-          <NavLink
-            key={menu.path}
-            to={menu.path}
-            className={({ isActive }) =>
-              `
-              flex items-center gap-3
-              px-4 py-3
-              rounded-lg
-              mb-2
-              transition
-              ${
-                isActive
-                  ? "bg-white text-[#254593]"
-                  : "hover:bg-white/10"
-              }
-            `
+      <aside
+        className={`
+          fixed
+          top-0
+          left-0
+          z-50
+          w-64
+          bg-[#254593]
+          text-white
+          min-h-screen
+          transition-transform
+          duration-300
+
+          ${
+            sidebarOpen
+              ? "translate-x-0"
+              : "-translate-x-full"
+          }
+
+          lg:translate-x-0
+        `}
+      >
+        <div
+          className="
+            h-16
+            flex
+            items-center
+            justify-between
+            px-5
+            border-b
+            border-white/20
+          "
+        >
+          <h2 className="font-bold text-xl">
+            LMS Admin
+          </h2>
+
+          <button
+            onClick={() =>
+              setSidebarOpen(false)
             }
+            className="lg:hidden"
           >
-            {menu.icon}
+            <FiX size={24} />
+          </button>
+        </div>
 
-            <span>{menu.name}</span>
-          </NavLink>
-        ))}
-      </nav>
-    </aside>
+        <nav className="p-3">
+          {menus.map((menu) => (
+            <NavLink
+              key={menu.path}
+              to={menu.path}
+              onClick={() =>
+                setSidebarOpen(false)
+              }
+              className={({ isActive }) =>
+                `
+                flex
+                items-center
+                gap-3
+                px-4
+                py-3
+                rounded-lg
+                mb-2
+
+                ${
+                  isActive
+                    ? "bg-white text-[#254593]"
+                    : "hover:bg-white/10"
+                }
+              `
+              }
+            >
+              {menu.icon}
+              {menu.name}
+            </NavLink>
+          ))}
+        </nav>
+      </aside>
+    </>
   );
 };
 

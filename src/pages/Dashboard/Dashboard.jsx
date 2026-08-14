@@ -12,7 +12,7 @@ import {
 
 import AppLayout from "../../components/Layout/AppLayout";
 
-import Loader from "../../components/Layout/Loader";
+
 
 import StatsCard from "../../components/Dashboard/StatsCard";
 
@@ -23,8 +23,7 @@ import EnrollmentChart from "../../components/Dashboard/EnrollmentChart";
 import { getDashboard } from "../../api/dashboardApi";
 
 const Dashboard = () => {
-  const [loading, setLoading] =
-    useState(true);
+
 
   const [dashboard, setDashboard] =
     useState(null);
@@ -40,17 +39,14 @@ const Dashboard = () => {
         );
       } catch (error) {
         console.error(error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
   useEffect(() => {
     fetchDashboard();
   }, []);
 
-  if (loading)
-    return <Loader />;
+
 
   const stats =
     dashboard?.stats || {};

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import AppLayout from "../../components/Layout/AppLayout";
 
-import Loader from "../../components/Layout/Loader";
+
 
 import {
   getShopDetails,
@@ -11,8 +11,7 @@ import {
 } from "../../api/shopifyApi";
 
 const ShopDetails = () => {
-  const [loading, setLoading] =
-    useState(true);
+
 
   const [shop, setShop] =
     useState(null);
@@ -54,13 +53,10 @@ const ShopDetails = () => {
       );
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
-  if (loading)
-    return <Loader />;
+
 
   return (
     <AppLayout>

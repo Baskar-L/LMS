@@ -8,10 +8,20 @@ const AppLayout = ({
     <div className="bg-gray-100 min-h-screen">
       <Sidebar />
 
-      <div className="ml-64">
+      <div
+        className="
+          lg:ml-64
+          min-h-screen
+        "
+      >
         <Header />
 
-        <main className="p-5">
+        <main
+          className="
+            p-4
+            md:p-5
+          "
+        >
           {children}
         </main>
       </div>
