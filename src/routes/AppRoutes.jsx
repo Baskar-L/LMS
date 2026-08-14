@@ -32,12 +32,12 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route
-        path="/login"
+        path="/"
         element={<Login />}
       />
 
       <Route
-        path="/"
+        path="/dashboard"
         element={
           <ProtectedRoute>
             <Dashboard />

@@ -18,7 +18,7 @@ import {
 const menus = [
   {
     name: "Dashboard",
-    path: "/",
+    path: "/dashboard",
     icon: <FiGrid />,
   },
   {

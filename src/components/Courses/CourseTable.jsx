@@ -17,8 +17,8 @@ const CourseTable = ({
 }) => {
     return (
         <div className="table-wrapper">
-            <table className="common-table">
-                <thead className="table-header">
+            <table className="common-table ">
+                <thead className="table-header bg-[#254593]">
                     <tr>
                         <th className="table-th">
                             Title

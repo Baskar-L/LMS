@@ -11,7 +11,7 @@ const AuthSuccess = () => {
             const token = params.get("token");
 
             if (!token) {
-                navigate("/login", { replace: true });
+                navigate("/", { replace: true });
                 return;
             }
 
