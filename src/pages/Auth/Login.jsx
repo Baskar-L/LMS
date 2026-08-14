@@ -11,8 +11,8 @@ const Login = () => {
       );
     }
 
-    window.location.href =
-      `http://localhost:5000/api/auth/install?shop=${shop}`;
+   window.location.href =
+  `https://shopify-lms-api.onrender.com/api/auth/install?shop=${shop}`;
   };
 
   return (
