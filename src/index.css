@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+/* ---------- BODY ---------- */
+
+body {
+  background: #f3f4f6;
+  font-family:
+    Inter,
+    sans-serif;
+}
+
+/* ---------- INPUT ---------- */
+
+.input-box {
+  @apply block
+    w-full
+    mt-1
+    border
+    border-gray-300
+    rounded-lg
+    shadow-sm
+    text-sm
+    px-3
+    py-2.5
+    focus:outline-none
+    focus:ring-2
+    focus:ring-[#5c95e0]
+    focus:border-[#5c95e0];
+}
+
+/* ---------- BUTTON ---------- */
+
+.primary-btn {
+  @apply h-10
+    px-4
+    text-sm
+    font-medium
+    text-white
+    rounded-lg
+    transition
+    duration-200
+    inline-flex
+    items-center
+    justify-center
+    gap-2;
+  background: #254593;
+}
+
+.primary-btn:hover {
+  background: #1d3775;
+}
+
+.secondary-btn {
+  @apply h-10
+    px-4
+    text-sm
+    border
+    border-gray-300
+    rounded-lg
+    bg-white;
+}
+
+/* ---------- PAGE ---------- */
+
+.page-container {
+  @apply bg-white
+    shadow-md
+    rounded-2xl
+    p-6
+    w-full;
+}
+
+.page-title {
+  @apply text-2xl
+    font-bold
+    text-gray-800;
+}
+
+.page-subtitle {
+  @apply text-sm
+    text-gray-500;
+}
+
+/* ---------- CARD ---------- */
+
+.card {
+  @apply bg-white
+    rounded-2xl
+    shadow-md
+    p-5;
+}
+
+/* ---------- TABLE ---------- */
+
+.table-wrapper {
+  @apply w-full
+    overflow-x-auto
+    mt-5;
+}
+
+.common-table {
+  @apply w-full
+    min-w-max
+    text-sm;
+}
+
+.table-header {
+  @apply bg-[#111827]
+    text-white;
+}
+
+.table-th {
+  @apply p-4
+    text-left
+    font-semibold;
+}
+
+.table-row {
+  @apply border-b
+    hover:bg-gray-50;
+}
+
+.table-td {
+  @apply p-4;
+}
+
+/* ---------- STATUS ---------- */
+
+.status-active {
+  @apply px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700;
+}
+
+.status-inactive {
+  @apply px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700;
+}
+
+.status-progress {
+  @apply px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700;
+}
+
+.status-completed {
+  @apply px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700;
+}
+
+/* ---------- ANIMATION ---------- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* ---------- SCROLLBAR ---------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #254593 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #254593;
+}
