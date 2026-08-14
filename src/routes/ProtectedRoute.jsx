@@ -12,7 +12,23 @@ const ProtectedRoute = ({
   const {
     loading,
     isAuthenticated,
+    user,
   } = useAuth();
+
+  console.log(
+    "loading:",
+    loading
+  );
+
+  console.log(
+    "user:",
+    user
+  );
+
+  console.log(
+    "isAuthenticated:",
+    isAuthenticated
+  );
 
   if (loading) {
     return <Loader />;

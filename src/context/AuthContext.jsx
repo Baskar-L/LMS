@@ -13,8 +13,13 @@ const AuthContext =
 export const AuthProvider = ({
   children,
 }) => {
-  const [user, setUser] =
-    useState(null);
+  const [user, setUser] = useState(() => {
+  const storedUser = localStorage.getItem("user");
+
+  return storedUser
+    ? JSON.parse(storedUser)
+    : null;
+});
 
   const [loading, setLoading] =
     useState(true);
@@ -43,13 +48,16 @@ const fetchUser = async () => {
   }
 };
 
-  useEffect(() => {
-    if (token) {
-      fetchUser();
-    } else {
-      setLoading(false);
-    }
-  }, []);
+useEffect(() => {
+  const token =
+    localStorage.getItem("token");
+
+  if (token) {
+    fetchUser();
+  } else {
+    setLoading(false);
+  }
+}, []);
 
   const login = (
     token,
