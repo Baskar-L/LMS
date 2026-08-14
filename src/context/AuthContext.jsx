@@ -13,12 +13,30 @@ const AuthContext =
 export const AuthProvider = ({
   children,
 }) => {
-  const [user, setUser] = useState(() => {
-  const storedUser = localStorage.getItem("user");
 
-  return storedUser
-    ? JSON.parse(storedUser)
-    : null;
+  const [user, setUser] = useState(() => {
+  try {
+    const storedUser = localStorage.getItem("user");
+
+    if (
+      !storedUser ||
+      storedUser === "undefined" ||
+      storedUser === "null"
+    ) {
+      return null;
+    }
+
+    return JSON.parse(storedUser);
+  } catch (error) {
+    console.error(
+      "Invalid user data in localStorage",
+      error
+    );
+
+    localStorage.removeItem("user");
+
+    return null;
+  }
 });
 
   const [loading, setLoading] =
@@ -49,6 +67,16 @@ const fetchUser = async () => {
 };
 
 useEffect(() => {
+  console.log(
+    "Stored Token:",
+    localStorage.getItem("token")
+  );
+
+  console.log(
+    "Stored User:",
+    localStorage.getItem("user")
+  );
+
   const token =
     localStorage.getItem("token");
 

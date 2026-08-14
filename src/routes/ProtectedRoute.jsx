@@ -29,6 +29,7 @@ const ProtectedRoute = ({
     "isAuthenticated:",
     isAuthenticated
   );
+  console.log("User:", user);
 
   if (loading) {
     return <Loader />;
