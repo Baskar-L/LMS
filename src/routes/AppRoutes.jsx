@@ -12,9 +12,6 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 
 import Courses from "../pages/Courses/Courses";
 
-import AddCourse from "../pages/Courses/AddCourse";
-
-import EditCourse from "../pages/Courses/EditCourse";
 import CourseView from "../pages/Courses/CourseView";
 
 import Students from "../pages/Students/Students";
@@ -54,23 +51,7 @@ const AppRoutes = () => {
         }
       />
 
-      <Route
-        path="/courses/add"
-        element={
-          <ProtectedRoute>
-            <AddCourse />
-          </ProtectedRoute>
-        }
-      />
 
-      <Route
-        path="/courses/edit/:id"
-        element={
-          <ProtectedRoute>
-            <EditCourse />
-          </ProtectedRoute>
-        }
-      />
 
       <Route
         path="/courses/:id"

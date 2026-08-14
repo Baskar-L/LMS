@@ -1,6 +1,6 @@
 import {
-  FiEye,
-  FiTrash2,
+    FiEye,
+    FiTrash2,
 } from "react-icons/fi";
 
 import { Link } from "react-router-dom";
@@ -8,117 +8,122 @@ import { Link } from "react-router-dom";
 import StatusBadge from "./StatusBadge";
 
 import {
-  formatDate,
+    formatDate,
 } from "../../utils/helpers";
 
 const EnrollmentTable = ({
-  enrollments,
-  onDelete,
+    enrollments,
+    onDelete,
+      onView,
 }) => {
-  return (
-    <div className="table-wrapper">
-      <table className="common-table">
-        <thead className="table-header">
-          <tr>
-            <th className="table-th">
-              Student
-            </th>
+    return (
+        <div className="table-wrapper">
+            <table className="common-table">
+                <thead className="table-header">
+                    <tr>
+                        <th className="table-th">
+                            Student
+                        </th>
 
-            <th className="table-th">
-              Email
-            </th>
+                        <th className="table-th">
+                            Email
+                        </th>
 
-            <th className="table-th">
-              Course
-            </th>
+                        <th className="table-th">
+                            Course
+                        </th>
 
-            <th className="table-th">
-              Date
-            </th>
+                        <th className="table-th">
+                            Date
+                        </th>
 
-            <th className="table-th">
-              Status
-            </th>
+                        <th className="table-th">
+                            Status
+                        </th>
 
-            <th className="table-th">
-              Action
-            </th>
-          </tr>
-        </thead>
+                        <th className="table-th">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
 
-        <tbody>
-          {enrollments.map(
-            (enrollment) => (
-              <tr
-                key={
-                  enrollment._id
-                }
-                className="table-row"
-              >
-                <td className="table-td">
-                  {
-                    enrollment
-                      .studentId
-                      ?.name
-                  }
-                </td>
+                <tbody>
+                    {enrollments.map(
+                        (enrollment) => (
+                            <tr
+                                key={
+                                    enrollment._id
+                                }
+                                className="table-row"
+                            >
+                                <td className="table-td">
+                                    {
+                                        enrollment
+                                            .studentId
+                                            ?.name
+                                    }
+                                </td>
 
-                <td className="table-td">
-                  {
-                    enrollment
-                      .studentId
-                      ?.email
-                  }
-                </td>
+                                <td className="table-td">
+                                    {
+                                        enrollment
+                                            .studentId
+                                            ?.email
+                                    }
+                                </td>
 
-                <td className="table-td">
-                  {
-                    enrollment
-                      .courseId
-                      ?.title
-                  }
-                </td>
+                                <td className="table-td">
+                                    {
+                                        enrollment
+                                            .courseId
+                                            ?.title
+                                    }
+                                </td>
 
-                <td className="table-td">
-                  {formatDate(
-                    enrollment.enrollmentDate
-                  )}
-                </td>
+                                <td className="table-td">
+                                    {formatDate(
+                                        enrollment.enrollmentDate
+                                    )}
+                                </td>
 
-                <td className="table-td">
-                  <StatusBadge
-                    status={
-                      enrollment.status
-                    }
-                  />
-                </td>
+                                <td className="table-td">
+                                    <StatusBadge
+                                        status={
+                                            enrollment.status
+                                        }
+                                    />
+                                </td>
 
-                <td className="table-td">
-                  <div className="flex gap-3">
-                    <Link
-                      to={`/enrollments/${enrollment._id}`}
-                    >
-                      <FiEye />
-                    </Link>
+                                <td className="table-td">
+                                    <div className="flex gap-3">
+                                        <button
+                                            onClick={() =>
+                                                onView(
+                                                    enrollment._id
+                                                )
+                                            }
+                                        >
+                                            <FiEye />
+                                        </button>
 
-                    <button
-                      onClick={() =>
-                        onDelete(
-                          enrollment._id
+                                        <button
+                                            onClick={() =>
+                                                onDelete(
+                                                    enrollment._id
+                                                )
+                                            }
+                                        >
+                                            <FiTrash2 />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                         )
-                      }
-                    >
-                      <FiTrash2 />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </table>
-    </div>
-  );
+                    )}
+                </tbody>
+            </table>
+        </div>
+    );
 };
 
 export default EnrollmentTable;

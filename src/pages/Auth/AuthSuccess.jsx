@@ -52,8 +52,43 @@ const AuthSuccess = () => {
     }, [navigate, params]);
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            Logging in...
+        <div
+            className="
+      min-h-screen
+      flex
+      flex-col
+      items-center
+      justify-center
+      bg-gray-50
+    "
+        >
+            <div
+                className="
+        w-16
+        h-16
+        border-4
+        border-[#254593]
+        border-t-transparent
+        rounded-full
+        animate-spin
+      "
+            />
+
+            <h2
+                className="
+        mt-6
+        text-xl
+        font-semibold
+        text-[#254593]
+      "
+            >
+                Signing You In...
+            </h2>
+
+            <p className="text-gray-500 mt-2">
+                Please wait while we verify
+                your Shopify account.
+            </p>
         </div>
     );
 };
