@@ -120,6 +120,29 @@ const Enrollments = () => {
             setDeleteId(null);
         };
 
+
+    const handleStatusChange =
+        async (id, status) => {
+            try {
+                await updateEnrollmentStatus(
+                    id,
+                    status
+                );
+
+                showToast(
+                    "success",
+                    "Status updated"
+                );
+
+                loadData();
+            } catch {
+                showToast(
+                    "error",
+                    "Update failed"
+                );
+            }
+        };
+
     return (
         <AppLayout>
             <div className="page-container">
@@ -229,9 +252,12 @@ const Enrollments = () => {
 
                 <EnrollmentTable
                     enrollments={enrollments}
-                     page={page}
+                    page={page}
                     onDelete={setDeleteId}
                     onView={setViewId}
+                    onStatusChange={
+                        handleStatusChange
+                    }
                 />
 
                 <Pagination

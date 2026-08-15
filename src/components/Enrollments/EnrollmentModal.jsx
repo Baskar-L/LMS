@@ -106,7 +106,7 @@ const EnrollmentModal = ({
           "error",
           error?.response?.data
             ?.message ||
-            "Enrollment failed"
+          "Enrollment failed"
         );
 
       } finally {
@@ -196,22 +196,19 @@ const EnrollmentModal = ({
 
         <select
           className="input-box"
-          value={
-            formData.status
-          }
+          value={formData.status}
           onChange={(e) =>
             setFormData({
               ...formData,
-              status:
-                e.target.value,
+              status: e.target.value,
             })
           }
         >
-          <option>
+          <option value="In Progress">
             In Progress
           </option>
 
-          <option>
+          <option value="Completed">
             Completed
           </option>
         </select>
