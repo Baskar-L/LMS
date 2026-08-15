@@ -42,14 +42,22 @@ const ShopDetails = () => {
         shopRes.data.data.shop
       );
 
+      // setCustomers(
+      //   customerRes.data.data
+      //     ?.customers?.edges || []
+      // );
+
+      // setProducts(
+      //   productRes.data.data
+      //     ?.products?.edges || []
+      // );
+
       setCustomers(
-        customerRes.data.data
-          ?.customers?.edges || []
+        customerRes.data.data?.customers?.nodes || []
       );
 
       setProducts(
-        productRes.data.data
-          ?.products?.edges || []
+        productRes.data.data?.products?.nodes || []
       );
     } catch (error) {
       console.error(error);
@@ -211,53 +219,50 @@ const ShopDetails = () => {
               </thead>
 
               <tbody>
-                {customers?.length > 0 ? (
-                  customers.map(({ node }) => (
+                {customers?.length > 0 ?
+
+                  customers.map((customer) => (
                     <tr
-                      key={node.id}
+                      key={customer.id}
                       className="table-row"
                     >
                       <td className="table-td">
-                        {node.firstName} {node.lastName}
+                        {customer.firstName} {customer.lastName}
                       </td>
 
                       <td className="table-td">
-                        {node.email || "-"}
+                        {customer.email || "-"}
                       </td>
 
                       <td className="table-td">
-                        {node.phone || "-"}
+                        {customer.phone || "-"}
                       </td>
 
                       <td className="table-td">
-                        {node.numberOfOrders}
+                        {customer.numberOfOrders}
                       </td>
 
                       <td className="table-td">
-                        {node.amountSpent?.amount}{" "}
-                        {
-                          node.amountSpent
-                            ?.currencyCode
-                        }
+                        {customer.amountSpent?.amount}{" "}
+                        {customer.amountSpent?.currencyCode}
                       </td>
 
                       <td className="table-td">
                         {new Date(
-                          node.createdAt
+                          customer.createdAt
                         ).toLocaleDateString()}
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan="6"
-                      className="text-center py-8"
-                    >
-                      No Customers Found
-                    </td>
-                  </tr>
-                )}
+                  )) : (
+                    <tr>
+                      <td
+                        colSpan="6"
+                        className="text-center py-8"
+                      >
+                        No Customers Found
+                      </td>
+                    </tr>
+                  )}
               </tbody>
             </table>
           </div>
@@ -285,62 +290,62 @@ const ShopDetails = () => {
               </thead>
 
               <tbody>
-                {products?.length > 0 ? (
-                  products.map(({ node }) => (
+                {products?.length > 0 ?
+
+                  products.map((product) => (
                     <tr
-                      key={node.id}
+                      key={product.id}
                       className="table-row"
                     >
                       <td className="table-td">
-                        {node.title}
+                        {product.title}
                       </td>
 
                       <td className="table-td">
-                        {node.handle}
+                        {product.handle}
                       </td>
 
                       <td className="table-td">
-                        {node.vendor}
+                        {product.vendor}
                       </td>
 
                       <td className="table-td">
-                        {node.productType || "-"}
+                        {product.productType || "-"}
                       </td>
 
                       <td className="table-td">
-                        {node.totalInventory}
+                        {product.totalInventory}
                       </td>
 
                       <td className="table-td">
                         <span
                           className={
-                            node.status ===
-                              "ACTIVE"
+                            product.status === "ACTIVE"
                               ? "status-active"
                               : "status-inactive"
                           }
                         >
-                          {node.status}
+                          {product.status}
                         </span>
                       </td>
 
                       <td className="table-td">
                         {new Date(
-                          node.createdAt
+                          product.createdAt
                         ).toLocaleDateString()}
                       </td>
                     </tr>
                   ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan="7"
-                      className="text-center py-8"
-                    >
-                      No Products Found
-                    </td>
-                  </tr>
-                )}
+                  : (
+                    <tr>
+                      <td
+                        colSpan="7"
+                        className="text-center py-8"
+                      >
+                        No Products Found
+                      </td>
+                    </tr>
+                  )}
               </tbody>
             </table>
           </div>
