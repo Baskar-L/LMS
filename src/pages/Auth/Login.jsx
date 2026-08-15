@@ -30,35 +30,37 @@ const Login = () => {
   // };
 
 
-  const handleInstall = () => {
-    const shopDomain = shop
-      .trim()
-      .toLowerCase();
+ const handleInstall = () => {
+  let shopDomain = shop
+    .trim()
+    .toLowerCase()
+    .replace(/^https?:\/\//, "")
+    .replace(/\/$/, "");
 
-    if (!shopDomain) {
-      showToast(
-        "warning",
-        "Please enter your Shopify store domain"
-      );
-      return;
-    }
+  if (!shopDomain) {
+    showToast(
+      "warning",
+      "Please enter your Shopify store domain"
+    );
+    return;
+  }
 
-    const shopRegex =
-      /^[a-zA-Z0-9-]+\.myshopify\.com$/;
+  const shopRegex =
+    /^[a-z0-9-]+\.myshopify\.com$/;
 
-    if (!shopRegex.test(shopDomain)) {
-      showToast(
-        "error",
-        "Enter a valid Shopify domain (example: store.myshopify.com)"
-      );
-      return;
-    }
+  if (!shopRegex.test(shopDomain)) {
+    showToast(
+      "error",
+      "Use format: store.myshopify.com"
+    );
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    window.location.href =
-      `https://shopify-lms-api.onrender.com/api/auth/install?shop=${shopDomain}`;
-  };
+  window.location.href =
+    `https://shopify-lms-api.onrender.com/api/auth/install?shop=${shopDomain}`;
+};
 
   return (
     <div
