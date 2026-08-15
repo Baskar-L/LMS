@@ -33,17 +33,82 @@ export const getStudents = async (
   next
 ) => {
   try {
+    const {
+      page = 1,
+      limit = 5,
+      search = "",
+      fromDate,
+      toDate,
+    } = req.query;
+
+    const query = {
+      merchantId:
+        req.user.merchantId,
+    };
+
+    // Search by Name / Email
+    if (search) {
+      query.$or = [
+        {
+          name: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          email: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ];
+    }
+
+    // Date Filter
+    if (fromDate || toDate) {
+      query.createdAt = {};
+
+      if (fromDate) {
+        query.createdAt.$gte =
+          new Date(fromDate);
+      }
+
+      if (toDate) {
+        query.createdAt.$lte =
+          new Date(
+            `${toDate}T23:59:59.999Z`
+          );
+      }
+    }
+
+    const total =
+      await Student.countDocuments(
+        query
+      );
+
     const students =
-      await Student.find({
-        merchantId:
-          req.user.merchantId,
-      });
+      await Student.find(query)
+        .sort({
+          createdAt: -1,
+        })
+        .skip(
+          (page - 1) * limit
+        )
+        .limit(Number(limit));
 
     res.json(
       new ApiResponse(
         200,
         students,
-        "Students fetched successfully"
+        "Students fetched successfully",
+        {
+          total,
+          page: Number(page),
+          totalPages:
+            Math.ceil(
+              total / limit
+            ),
+        }
       )
     );
   } catch (error) {

@@ -46,34 +46,110 @@ export const createEnrollment =
     }
   };
 
-export const getEnrollments =
-  async (req, res, next) => {
-    try {
-      const enrollments =
-        await Enrollment.find({
-          merchantId:
-            req.user.merchantId,
-        })
-          .populate(
-            "studentId",
-            "name email"
-          )
-          .populate(
-            "courseId",
-            "title category"
-          );
+export const getEnrollments = async (
+  req,
+  res,
+  next
+) => {
+  try {
+    const {
+      page = 1,
+      limit = 5,
+      search = "",
+      status,
+      fromDate,
+      toDate,
+    } = req.query;
 
-      res.json(
-        new ApiResponse(
-          200,
-          enrollments,
-          "Enrollments fetched successfully"
-        )
-      );
-    } catch (error) {
-      next(error);
+    const query = {
+      merchantId: req.user.merchantId,
+    };
+
+    if (status) {
+      query.status = status;
     }
-  };
+
+    if (fromDate || toDate) {
+      query.enrollmentDate = {};
+
+      if (fromDate) {
+        query.enrollmentDate.$gte =
+          new Date(fromDate);
+      }
+
+      if (toDate) {
+        query.enrollmentDate.$lte =
+          new Date(
+            `${toDate}T23:59:59.999Z`
+          );
+      }
+    }
+
+    let enrollments =
+      await Enrollment.find(query)
+        .populate(
+          "studentId",
+          "name email"
+        )
+        .populate(
+          "courseId",
+          "title category"
+        )
+        .sort({
+          createdAt: -1,
+        });
+
+    if (search) {
+      const keyword =
+        search.toLowerCase();
+
+      enrollments =
+        enrollments.filter(
+          (item) =>
+            item.studentId?.name
+              ?.toLowerCase()
+              .includes(keyword) ||
+            item.studentId?.email
+              ?.toLowerCase()
+              .includes(keyword) ||
+            item.courseId?.title
+              ?.toLowerCase()
+              .includes(keyword)
+        );
+    }
+
+    const total =
+      enrollments.length;
+
+    const start =
+      (page - 1) * limit;
+
+    const data =
+      enrollments.slice(
+        start,
+        start + Number(limit)
+      );
+
+    res.json(
+      new ApiResponse(
+        200,
+        data,
+        "Enrollments fetched successfully",
+        {
+          page: Number(page),
+          totalPages:
+            Math.ceil(
+              total / limit
+            ),
+          totalRecords:
+            total,
+        }
+      )
+    );
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const updateEnrollmentStatus =
   async (req, res, next) => {
