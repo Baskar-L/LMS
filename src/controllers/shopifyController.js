@@ -5,7 +5,7 @@ import shopifyService from "../services/shopifyService.js";
 import {
   GET_SHOP_DETAILS,
   GET_CUSTOMERS,
-    GET_PRODUCTS,
+  GET_PRODUCTS,
 } from "../graphql/shopQueries.js";
 
 import ApiResponse from "../utils/ApiResponse.js";
@@ -70,6 +70,11 @@ export const getCustomers =
           GET_CUSTOMERS
         );
 
+      console.log(
+        "CUSTOMERS RESULT:",
+        JSON.stringify(result, null, 2)
+      );
+
       res.json(
         new ApiResponse(
           200,
@@ -107,6 +112,11 @@ export const getProducts =
           GET_PRODUCTS
         );
 
+      console.log(
+        "PRODUCTS RESULT:",
+        JSON.stringify(result, null, 2)
+      );
+
       res.json(
         new ApiResponse(
           200,
@@ -121,33 +131,3 @@ export const getProducts =
 
 
 
-export const getProducts = async (req, res, next) => {
-  try {
-    const session = await Session.findOne({
-      merchantId: req.user.merchantId,
-    });
-
-    const result =
-      await shopifyService.executeQuery(
-        session.shop,
-        session.accessToken,
-        GET_PRODUCTS
-      );
-
-    console.log(
-      "PRODUCTS RESULT:",
-      JSON.stringify(result, null, 2)
-    );
-
-    res.json(
-      new ApiResponse(
-        200,
-        result.data,
-        "Products fetched successfully"
-      )
-    );
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-};
