@@ -8,8 +8,11 @@ import ApiError from "../utils/ApiError.js";
 export const createEnrollment =
   async (req, res, next) => {
     try {
-      const { studentId, courseId } =
-        req.body;
+      const {
+        studentId,
+        courseId,
+        status,
+      } = req.body;
 
       const exists =
         await enrollmentService.checkDuplicate(
@@ -30,6 +33,7 @@ export const createEnrollment =
             req.user.merchantId,
           studentId,
           courseId,
+          status, // <-- add this
         });
 
       res
@@ -54,7 +58,7 @@ export const getEnrollments = async (
   try {
     const {
       page = 1,
-      limit = 5,
+      limit = 1000,
       search = "",
       status,
       fromDate,

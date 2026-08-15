@@ -42,7 +42,7 @@ export const getCourses = async (
       fromDate = "",
       toDate = "",
       page = 1,
-      limit = 5,
+      limit = 1000,
     } = req.query;
 
     const query = {

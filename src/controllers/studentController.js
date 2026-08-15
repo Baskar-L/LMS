@@ -35,7 +35,7 @@ export const getStudents = async (
   try {
     const {
       page = 1,
-      limit = 5,
+      limit = 1000,
       search = "",
       fromDate,
       toDate,
