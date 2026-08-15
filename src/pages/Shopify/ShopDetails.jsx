@@ -53,7 +53,7 @@ const ShopDetails = () => {
       );
     } catch (error) {
       console.error(error);
-    } 
+    }
   };
 
 
@@ -65,12 +65,22 @@ const ShopDetails = () => {
         {/* Shop Information */}
 
         <div className="page-container">
-          <h1 className="page-title">
-            Shopify Store Information
-          </h1>
+          <div className="flex items-center justify-between mb-5">
+
+            <div>
+              <h1 className="page-title">
+                Shopify Store Information
+              </h1>
+
+              <p className="text-gray-500 text-sm">
+                Connected Shopify Store Details
+              </p>
+            </div>
+
+          </div>
 
           {shop && (
-            <div className="grid md:grid-cols-2 gap-5 mt-5">
+            <div className="grid md:grid-cols-3 gap-5 mt-5">
 
               <div>
                 <p className="text-gray-500 text-sm">
@@ -94,6 +104,16 @@ const ShopDetails = () => {
 
               <div>
                 <p className="text-gray-500 text-sm">
+                  Domain
+                </p>
+
+                <h3 className="font-semibold">
+                  {shop.myshopifyDomain}
+                </h3>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
                   Currency
                 </p>
 
@@ -108,10 +128,61 @@ const ShopDetails = () => {
                 </p>
 
                 <h3 className="font-semibold">
-                  {
-                    shop.plan
-                      ?.displayName
-                  }
+                  {shop.plan?.displayName}
+                </h3>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Store URL
+                </p>
+
+                <h3 className="font-semibold break-all">
+                  {shop.primaryDomain?.url}
+                </h3>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Country
+                </p>
+
+                <h3 className="font-semibold">
+                  {shop.billingAddress?.country}
+                </h3>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  City
+                </p>
+
+                <h3 className="font-semibold">
+                  {shop.billingAddress?.city}
+                </h3>
+              </div>
+
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Phone
+                </p>
+
+                <h3 className="font-semibold">
+                  {shop.billingAddress?.phone || "-"}
+                </h3>
+              </div>
+
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Store Created
+                </p>
+
+                <h3 className="font-semibold">
+                  {new Date(
+                    shop.createdAt
+                  ).toLocaleDateString()}
                 </h3>
               </div>
 
@@ -121,7 +192,7 @@ const ShopDetails = () => {
 
         {/* Customers */}
 
-        <div className="page-container">
+        {/* <div className="page-container">
           <h2 className="text-xl font-semibold mb-4">
             Customers
           </h2>
@@ -163,11 +234,11 @@ const ShopDetails = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
 
         {/* Products */}
 
-        <div className="page-container">
+        {/* <div className="page-container">
           <h2 className="text-xl font-semibold mb-4">
             Products
           </h2>
@@ -214,7 +285,7 @@ const ShopDetails = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
 
       </div>
     </AppLayout>
