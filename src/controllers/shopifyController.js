@@ -46,6 +46,7 @@ export const getShopDetails =
     }
   };
 
+
 export const getCustomers =
   async (req, res, next) => {
     try {
@@ -117,3 +118,36 @@ export const getProducts =
       next(error);
     }
   };
+
+
+
+export const getProducts = async (req, res, next) => {
+  try {
+    const session = await Session.findOne({
+      merchantId: req.user.merchantId,
+    });
+
+    const result =
+      await shopifyService.executeQuery(
+        session.shop,
+        session.accessToken,
+        GET_PRODUCTS
+      );
+
+    console.log(
+      "PRODUCTS RESULT:",
+      JSON.stringify(result, null, 2)
+    );
+
+    res.json(
+      new ApiResponse(
+        200,
+        result.data,
+        "Products fetched successfully"
+      )
+    );
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
