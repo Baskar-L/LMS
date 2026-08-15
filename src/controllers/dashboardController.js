@@ -28,7 +28,7 @@ export const getDashboard =
           .sort({
             createdAt: -1,
           })
-          .limit(5);
+          .limit(4);
 
       res.json(
         new ApiResponse(

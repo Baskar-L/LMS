@@ -1,9 +1,31 @@
 export const GET_SHOP_DETAILS = `
 query {
   shop {
+    id
     name
     email
     myshopifyDomain
+    currencyCode
+
+    billingAddress {
+      city
+      country
+      phone
+      zip
+    }
+
+    plan {
+      displayName
+      partnerDevelopment
+      shopifyPlus
+    }
+
+    primaryDomain {
+      host
+      url
+    }
+
+    createdAt
   }
 }
 `;
