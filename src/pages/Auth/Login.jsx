@@ -63,43 +63,44 @@ const Login = () => {
   return (
     <div
       className="
-        min-h-screen
-        bg-gradient-to-br
-        from-[#254593]
-        via-[#355fc4]
-        to-[#6b8cff]
-        flex
-        items-center
-        justify-center
-        p-4
-      "
+      min-h-screen
+      bg-gradient-to-br
+      from-[#254593]
+      via-[#355fc4]
+      to-[#6b8cff]
+      flex
+      items-center
+      justify-center
+      px-4
+    "
     >
       <div
         className="
-          bg-white
-          w-full
-          max-w-md
-          rounded-3xl
-          shadow-2xl
-          p-8
-        "
+        bg-white
+        w-full
+        max-w-lg
+        rounded-3xl
+        shadow-2xl
+        p-10
+      "
       >
         {/* Logo */}
 
-        <div className="flex justify-center mb-5">
+        <div className="flex justify-center mb-6">
           <div
             className="
-              w-16
-              h-16
-              rounded-2xl
-              bg-[#254593]
-              flex
-              items-center
-              justify-center
-            "
+            w-20
+            h-20
+            rounded-3xl
+            bg-[#254593]
+            flex
+            items-center
+            justify-center
+            shadow-lg
+          "
           >
             <FiShoppingBag
-              size={28}
+              size={36}
               className="text-white"
             />
           </div>
@@ -109,26 +110,28 @@ const Login = () => {
 
         <h1
           className="
-            text-3xl
-            font-bold
-            text-center
-            text-[#254593]
-          "
+          text-4xl
+          font-bold
+          text-center
+          text-[#254593]
+        "
         >
           Shopify LMS
         </h1>
 
         <p
           className="
-            text-center
-            text-gray-500
-            mt-2
-            mb-8
-          "
+          text-center
+          text-gray-500
+          mt-3
+          mb-8
+          text-base
+          leading-relaxed
+        "
         >
-          Install and manage your
-          learning platform inside
-          Shopify
+          Install and manage your learning
+          platform directly inside your
+          Shopify store
         </p>
 
         {/* Store Domain */}
@@ -136,10 +139,10 @@ const Login = () => {
         <div className="space-y-2">
           <label
             className="
-              text-sm
-              font-medium
-              text-gray-700
-            "
+            text-sm
+            font-semibold
+            text-gray-700
+          "
           >
             Shopify Store Domain
           </label>
@@ -156,17 +159,18 @@ const Login = () => {
             }
             placeholder="store-name.myshopify.com"
             className="
-    w-full
-    px-4
-    py-3
-    border
-    border-gray-300
-    rounded-xl
-    outline-none
-    focus:ring-2
-    focus:ring-[#254593]
-    focus:border-transparent
-  "
+            w-full
+            h-14
+            px-4
+            border
+            border-gray-300
+            rounded-xl
+            text-base
+            outline-none
+            focus:ring-2
+            focus:ring-[#254593]
+            focus:border-transparent
+          "
           />
         </div>
 
@@ -176,17 +180,18 @@ const Login = () => {
           onClick={handleInstall}
           disabled={loading}
           className="
-            w-full
-            mt-6
-            bg-[#254593]
-            hover:bg-[#1d3977]
-            text-white
-            font-semibold
-            py-3
-            rounded-xl
-            transition
-            disabled:opacity-50
-          "
+          w-full
+          h-14
+          mt-8
+          bg-[#254593]
+          hover:bg-[#1d3977]
+          text-white
+          font-semibold
+          rounded-xl
+          transition-all
+          duration-300
+          disabled:opacity-50
+        "
         >
           {loading
             ? "Redirecting..."
@@ -197,14 +202,14 @@ const Login = () => {
 
         <p
           className="
-            text-xs
-            text-center
-            text-gray-400
-            mt-5
-          "
+          text-sm
+          text-center
+          text-gray-400
+          mt-6
+        "
         >
-          Enter your Shopify store
-          URL to install LMS App
+          Enter your Shopify store URL to
+          install the LMS App
         </p>
       </div>
     </div>
