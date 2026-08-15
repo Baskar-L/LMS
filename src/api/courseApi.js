@@ -1,9 +1,16 @@
 import api from "./axios";
 
+  
 export const getCourses =
-  async () => {
+  async (params) => {
+
     const response =
-      await api.get("/courses");
+      await api.get(
+        "/courses",
+        {
+          params,
+        }
+      );
 
     return response.data;
   };

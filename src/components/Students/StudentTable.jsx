@@ -60,7 +60,8 @@ const StudentTable = ({
                                     )}
                                 </td>
 
-                                <div className="flex gap-3">
+                                <td className="table-td">
+                                    <div className="flex gap-3">
 
                                     <button
                                         onClick={() =>
@@ -68,8 +69,8 @@ const StudentTable = ({
                                         }
                                     >
                                         <FiEye
-                                            size={16}
-                                            className="text-blue-500"
+                                            size={18}
+                                            className="text-blue-500 cursor-pointer"
                                         />
                                     </button>
 
@@ -79,8 +80,8 @@ const StudentTable = ({
                                         }
                                     >
                                         <FiEdit
-                                            size={16}
-                                            className="text-green-500"
+                                            size={18}
+                                            className="text-green-500 cursor-pointer"
                                         />
                                     </button>
 
@@ -90,12 +91,13 @@ const StudentTable = ({
                                         }
                                     >
                                         <FiTrash2
-                                            size={16}
-                                            className="text-red-500"
+                                            size={18}
+                                            className="text-red-500 cursor-pointer"
                                         />
                                     </button>
 
                                 </div>
+                                </td>
                             </tr>
                         )
                     )}

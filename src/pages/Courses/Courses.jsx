@@ -11,6 +11,7 @@ import CourseModal from "../../components/Courses/CourseModal";
 
 import ConfirmModal from "../../components/Common/ConfirmModal";
 import ViewCourseModal from "../../components/Courses/ViewCourseModal";
+import Pagination from "../../components/Common/Pagination";
 
 import {
     getCourses,
@@ -39,26 +40,68 @@ const Courses = () => {
     const [viewId, setViewId] =
         useState(null);
 
+
+    const [page, setPage] =
+        useState(1);
+
+    const [totalPages, setTotalPages] =
+        useState(1);
+
+    const [search, setSearch] =
+        useState("");
+
+    const [status, setStatus] =
+        useState("");
+
+    const [fromDate, setFromDate] =
+        useState("");
+
+    const [toDate, setToDate] =
+        useState("");
+
     const fetchCourses =
         async () => {
+
             try {
+
                 const res =
-                    await getCourses();
+                    await getCourses({
+                        page,
+                        limit: 5,
+                        search,
+                        status,
+                        fromDate,
+                        toDate,
+                    });
 
                 setCourses(
-                    res.data || []
+                    res.data
                 );
+
+                setTotalPages(
+                    res.pagination
+                        .totalPages
+                );
+
             } catch {
+
                 showToast(
                     "error",
                     "Failed to load courses"
                 );
+
             }
         };
 
     useEffect(() => {
         fetchCourses();
-    }, []);
+    }, [
+        page,
+        search,
+        status,
+        fromDate,
+        toDate,
+    ]);
 
     const handleDelete =
         async () => {
@@ -107,6 +150,71 @@ const Courses = () => {
                 </div>
 
 
+                <div className="grid md:grid-cols-4 gap-3 mb-5">
+
+                    <input
+                        type="text"
+                        placeholder="Search title, instructor, category"
+                        value={search}
+                        onChange={(e) => {
+                            setSearch(
+                                e.target.value
+                            );
+                            setPage(1);
+                        }}
+                        className="input-box"
+                    />
+
+                    <select
+                        value={status}
+                        onChange={(e) => {
+                            setStatus(
+                                e.target.value
+                            );
+                            setPage(1);
+                        }}
+                        className="input-box"
+                    >
+                        <option value="">
+                            All Status
+                        </option>
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+                    </select>
+
+                    <input
+                        type="date"
+                        value={fromDate}
+                        onChange={(e) => {
+                            setFromDate(
+                                e.target.value
+                            );
+                            setPage(1);
+                        }}
+                        className="input-box"
+                    />
+
+                    <input
+                        type="date"
+                        value={toDate}
+                        onChange={(e) => {
+                            setToDate(
+                                e.target.value
+                            );
+                            setPage(1);
+                        }}
+                        className="input-box"
+                    />
+
+                </div>
+
+
 
 
                 <CourseTable
@@ -119,6 +227,16 @@ const Courses = () => {
                     onView={(id) => {
                         setViewId(id);
                     }}
+                />
+
+                <Pagination
+                    page={page}
+                    totalPages={
+                        totalPages
+                    }
+                    onPageChange={
+                        setPage
+                    }
                 />
 
             </div>

@@ -103,7 +103,7 @@ const EnrollmentTable = ({
                                                 )
                                             }
                                         >
-                                            <FiEye />
+                                            <FiEye size={18} className="text-blue-500 cursor-pointer" />
                                         </button>
 
                                         <button
@@ -113,7 +113,7 @@ const EnrollmentTable = ({
                                                 )
                                             }
                                         >
-                                            <FiTrash2 />
+                                            <FiTrash2 size={18} className="text-red-500 cursor-pointer" />
                                         </button>
                                     </div>
                                 </td>

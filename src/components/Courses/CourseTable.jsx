@@ -37,9 +37,7 @@ const CourseTable = ({
                             Duration
                         </th>
 
-                        <th className="table-th">
-                            Description
-                        </th>
+                 
 
                         <th className="table-th">
                             Status
@@ -75,11 +73,7 @@ const CourseTable = ({
                                 {course.category}
                             </td>
 
-                            <td className="table-td max-w-xs">
-
-                                {course.description}
-
-                            </td>
+                  
 
                             <td className="table-td">
                                 {course.duration}
@@ -112,14 +106,14 @@ const CourseTable = ({
                                             onView(course._id)
                                         }
                                     >
-                                        <FiEye size={16} className="text-[#007bff]" />
+                                        <FiEye size={18} className="text-[#007bff] cursor-pointer" />
                                     </button>
                                     <button
                                         onClick={() =>
                                             onEdit(course._id)
                                         }
                                     >
-                                        <FiEdit size={16} className="text-[#007bff]" />
+                                        <FiEdit size={18} className="text-[#007bff] cursor-pointer" />
                                     </button>
 
 
@@ -131,7 +125,7 @@ const CourseTable = ({
                                             )
                                         }
                                     >
-                                        <FiTrash2 size={16} className="text-red-400" />
+                                        <FiTrash2 size={18} className="text-red-500 cursor-pointer" />
                                     </button>
                                 </div>
                             </td>
