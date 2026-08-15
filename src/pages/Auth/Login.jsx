@@ -13,20 +13,51 @@ const Login = () => {
   const [loading, setLoading] =
     useState(false);
 
+  // const handleInstall = () => {
+  //   if (!shop.trim()) {
+  //     showToast(
+  //       "warning",
+  //       "Please enter your Shopify store domain"
+  //     );
+
+  //     return;
+  //   }
+
+  //   setLoading(true);
+
+  //   window.location.href =
+  //     `https://shopify-lms-api.onrender.com/api/auth/install?shop=${shop}`;
+  // };
+
+
   const handleInstall = () => {
-    if (!shop.trim()) {
+    const shopDomain = shop
+      .trim()
+      .toLowerCase();
+
+    if (!shopDomain) {
       showToast(
         "warning",
         "Please enter your Shopify store domain"
       );
+      return;
+    }
 
+    const shopRegex =
+      /^[a-zA-Z0-9-]+\.myshopify\.com$/;
+
+    if (!shopRegex.test(shopDomain)) {
+      showToast(
+        "error",
+        "Enter a valid Shopify domain (example: store.myshopify.com)"
+      );
       return;
     }
 
     setLoading(true);
 
     window.location.href =
-      `https://shopify-lms-api.onrender.com/api/auth/install?shop=${shop}`;
+      `https://shopify-lms-api.onrender.com/api/auth/install?shop=${shopDomain}`;
   };
 
   return (
@@ -117,21 +148,25 @@ const Login = () => {
             type="text"
             value={shop}
             onChange={(e) =>
-              setShop(e.target.value)
+              setShop(
+                e.target.value
+                  .replace(/\s/g, "")
+                  .toLowerCase()
+              )
             }
             placeholder="store-name.myshopify.com"
             className="
-              w-full
-              px-4
-              py-3
-              border
-              border-gray-300
-              rounded-xl
-              outline-none
-              focus:ring-2
-              focus:ring-[#254593]
-              focus:border-transparent
-            "
+    w-full
+    px-4
+    py-3
+    border
+    border-gray-300
+    rounded-xl
+    outline-none
+    focus:ring-2
+    focus:ring-[#254593]
+    focus:border-transparent
+  "
           />
         </div>
 
