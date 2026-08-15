@@ -1,9 +1,16 @@
 import api from "./axios";
 
-export const getEnrollments =
-  async () => {
+
+  export const getEnrollments =
+  async (params = {}) => {
+
     const response =
-      await api.get("/enrollments");
+      await api.get(
+        "/enrollments",
+        {
+          params,
+        }
+      );
 
     return response.data;
   };

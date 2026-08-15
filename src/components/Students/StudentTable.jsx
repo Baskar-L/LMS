@@ -12,6 +12,7 @@ import {
 
 const StudentTable = ({
     students,
+    page,
     onDelete,
     onEdit,
     onView,
@@ -21,6 +22,9 @@ const StudentTable = ({
             <table className="common-table">
                 <thead className="table-header">
                     <tr>
+                        <th className="table-th">
+                            S.No
+                        </th>
                         <th className="table-th">
                             Name
                         </th>
@@ -40,67 +44,107 @@ const StudentTable = ({
                 </thead>
 
                 <tbody>
-                    {students.map(
-                        (student) => (
-                            <tr
-                                key={student._id}
-                                className="table-row"
-                            >
-                                <td className="table-td">
-                                    {student.name}
-                                </td>
 
-                                <td className="table-td">
-                                    {student.email}
-                                </td>
+                    {students?.length > 0 ? (
 
-                                <td className="table-td">
-                                    {formatDate(
-                                        student.createdAt
-                                    )}
-                                </td>
+                        students.map(
+                            (
+                                student,
+                                index
+                            ) => (
+                                <tr
+                                    key={student._id}
+                                    className="table-row"
+                                >
 
-                                <td className="table-td">
-                                    <div className="flex gap-3">
+                                    <td className="table-td">
+                                        {(page - 1) * 5 +
+                                            index +
+                                            1}
+                                    </td>
 
-                                    <button
-                                        onClick={() =>
-                                            onView(student._id)
-                                        }
-                                    >
-                                        <FiEye
-                                            size={18}
-                                            className="text-blue-500 cursor-pointer"
-                                        />
-                                    </button>
+                                    <td className="table-td">
+                                        {student.name}
+                                    </td>
 
-                                    <button
-                                        onClick={() =>
-                                            onEdit(student._id)
-                                        }
-                                    >
-                                        <FiEdit
-                                            size={18}
-                                            className="text-green-500 cursor-pointer"
-                                        />
-                                    </button>
+                                    <td className="table-td">
+                                        {student.email}
+                                    </td>
 
-                                    <button
-                                        onClick={() =>
-                                            onDelete(student._id)
-                                        }
-                                    >
-                                        <FiTrash2
-                                            size={18}
-                                            className="text-red-500 cursor-pointer"
-                                        />
-                                    </button>
+                                    <td className="table-td">
+                                        {formatDate(
+                                            student.createdAt
+                                        )}
+                                    </td>
 
-                                </div>
-                                </td>
-                            </tr>
+                                    <td className="table-td">
+                                        <div className="flex gap-3">
+
+                                            <button
+                                                onClick={() =>
+                                                    onView(
+                                                        student._id
+                                                    )
+                                                }
+                                            >
+                                                <FiEye
+                                                    size={18}
+                                                    className="text-blue-500 cursor-pointer"
+                                                />
+                                            </button>
+
+                                            <button
+                                                onClick={() =>
+                                                    onEdit(
+                                                        student._id
+                                                    )
+                                                }
+                                            >
+                                                <FiEdit
+                                                    size={18}
+                                                    className="text-green-500 cursor-pointer"
+                                                />
+                                            </button>
+
+                                            <button
+                                                onClick={() =>
+                                                    onDelete(
+                                                        student._id
+                                                    )
+                                                }
+                                            >
+                                                <FiTrash2
+                                                    size={18}
+                                                    className="text-red-500 cursor-pointer"
+                                                />
+                                            </button>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            )
                         )
+
+                    ) : (
+
+                        <tr>
+
+                            <td
+                                colSpan="5"
+                                className="
+          text-center
+          py-6
+          text-gray-500
+        "
+                            >
+                                No Students Found
+                            </td>
+
+                        </tr>
+
                     )}
+
                 </tbody>
             </table>
         </div>

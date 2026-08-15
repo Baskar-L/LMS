@@ -14,8 +14,9 @@ import EnrollmentModal from "../../components/Enrollments/EnrollmentModal";
 import ViewEnrollmentModal from "../../components/Enrollments/ViewEnrollmentModal";
 
 import ConfirmModal from "../../components/Common/ConfirmModal";
+import Pagination from "../../components/Common/Pagination";
 import {
-  useToast,
+    useToast,
 } from "../../context/ToastContext";
 
 import {
@@ -39,19 +40,57 @@ const Enrollments = () => {
     const [deleteId, setDeleteId] =
         useState(null);
 
+
+    const [page, setPage] =
+        useState(1);
+
+    const [totalPages, setTotalPages] =
+        useState(1);
+
+    const [search, setSearch] =
+        useState("");
+
+    const [status, setStatus] =
+        useState("");
+
+    const [fromDate, setFromDate] =
+        useState("");
+
+    const [toDate, setToDate] =
+        useState("");
+
     const loadData =
         async () => {
+
             const response =
-                await getEnrollments();
+                await getEnrollments({
+                    page,
+                    limit: 5,
+                    search,
+                    status,
+                    fromDate,
+                    toDate,
+                });
 
             setEnrollments(
                 response.data || []
+            );
+
+            setTotalPages(
+                response.pagination
+                    ?.totalPages || 1
             );
         };
 
     useEffect(() => {
         loadData();
-    }, []);
+    }, [
+        page,
+        search,
+        status,
+        fromDate,
+        toDate,
+    ]);
 
     const handleDelete =
         async () => {
@@ -99,10 +138,110 @@ const Enrollments = () => {
                     </button>
                 </div>
 
+
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+
+                    <div>
+                        <label className="block text-sm font-medium mb-1">
+                            Search
+                        </label>
+
+                        <input
+                            type="text"
+                            value={search}
+                            placeholder="Student / Email / Course"
+                            onChange={(e) => {
+                                setSearch(
+                                    e.target.value
+                                );
+                                setPage(1);
+                            }}
+                            className="w-full h-10 px-3 border rounded-lg"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium mb-1">
+                            Status
+                        </label>
+
+                        <select
+                            value={status}
+                            onChange={(e) => {
+                                setStatus(
+                                    e.target.value
+                                );
+                                setPage(1);
+                            }}
+                            className="w-full h-10 px-3 border rounded-lg"
+                        >
+                            <option value="">
+                                All Status
+                            </option>
+
+                            <option value="In Progress">
+                                In Progress
+                            </option>
+
+                            <option value="Completed">
+                                Completed
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium mb-1">
+                            From Date
+                        </label>
+
+                        <input
+                            type="date"
+                            value={fromDate}
+                            onChange={(e) => {
+                                setFromDate(
+                                    e.target.value
+                                );
+                                setPage(1);
+                            }}
+                            className="w-full h-10 px-3 border rounded-lg"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium mb-1">
+                            To Date
+                        </label>
+
+                        <input
+                            type="date"
+                            value={toDate}
+                            onChange={(e) => {
+                                setToDate(
+                                    e.target.value
+                                );
+                                setPage(1);
+                            }}
+                            className="w-full h-10 px-3 border rounded-lg"
+                        />
+                    </div>
+
+                </div>
+
                 <EnrollmentTable
                     enrollments={enrollments}
+                     page={page}
                     onDelete={setDeleteId}
                     onView={setViewId}
+                />
+
+                <Pagination
+                    page={page}
+                    totalPages={
+                        totalPages
+                    }
+                    onPageChange={
+                        setPage
+                    }
                 />
             </div>
 

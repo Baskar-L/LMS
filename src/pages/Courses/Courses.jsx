@@ -150,67 +150,75 @@ const Courses = () => {
                 </div>
 
 
-                <div className="grid md:grid-cols-4 gap-3 mb-5">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
 
-                    <input
-                        type="text"
-                        placeholder="Search title, instructor, category"
-                        value={search}
-                        onChange={(e) => {
-                            setSearch(
-                                e.target.value
-                            );
-                            setPage(1);
-                        }}
-                        className="input-box"
-                    />
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Search
+                        </label>
 
-                    <select
-                        value={status}
-                        onChange={(e) => {
-                            setStatus(
-                                e.target.value
-                            );
-                            setPage(1);
-                        }}
-                        className="input-box"
-                    >
-                        <option value="">
-                            All Status
-                        </option>
+                        <input
+                            type="text"
+                            placeholder="Title, Instructor, Category"
+                            value={search}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                setPage(1);
+                            }}
+                            className="w-full h-9 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#254593]"
+                        />
+                    </div>
 
-                        <option value="Active">
-                            Active
-                        </option>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Status
+                        </label>
 
-                        <option value="Inactive">
-                            Inactive
-                        </option>
-                    </select>
+                        <select
+                            value={status}
+                            onChange={(e) => {
+                                setStatus(e.target.value);
+                                setPage(1);
+                            }}
+                            className="w-full h-9 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#254593]"
+                        >
+                            <option value="">All Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
 
-                    <input
-                        type="date"
-                        value={fromDate}
-                        onChange={(e) => {
-                            setFromDate(
-                                e.target.value
-                            );
-                            setPage(1);
-                        }}
-                        className="input-box"
-                    />
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            From Date
+                        </label>
 
-                    <input
-                        type="date"
-                        value={toDate}
-                        onChange={(e) => {
-                            setToDate(
-                                e.target.value
-                            );
-                            setPage(1);
-                        }}
-                        className="input-box"
-                    />
+                        <input
+                            type="date"
+                            value={fromDate}
+                            onChange={(e) => {
+                                setFromDate(e.target.value);
+                                setPage(1);
+                            }}
+                            className="w-full h-9 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#254593]"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            To Date
+                        </label>
+
+                        <input
+                            type="date"
+                            value={toDate}
+                            onChange={(e) => {
+                                setToDate(e.target.value);
+                                setPage(1);
+                            }}
+                            className="w-full h-9 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#254593]"
+                        />
+                    </div>
 
                 </div>
 
@@ -219,6 +227,7 @@ const Courses = () => {
 
                 <CourseTable
                     courses={courses}
+                      page={page}
                     onDelete={setDeleteId}
                     onEdit={(id) => {
                         setEditId(id);
