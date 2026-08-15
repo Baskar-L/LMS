@@ -48,7 +48,7 @@ query {
     }
   }
 }
-`;
+`;  
 
 export const GET_PRODUCTS = `
 query {

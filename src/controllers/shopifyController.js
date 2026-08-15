@@ -49,6 +49,7 @@ export const getShopDetails =
 
 export const getCustomers =
   async (req, res, next) => {
+    console.log("GET CUSTOMERS API HIT");
     try {
       const session =
         await Session.findOne({
@@ -91,6 +92,7 @@ export const getCustomers =
 
 export const getProducts =
   async (req, res, next) => {
+    console.log("GET PRODUCTS API HIT");
     try {
       const session =
         await Session.findOne({
