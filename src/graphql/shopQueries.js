@@ -38,6 +38,13 @@ query {
       firstName
       lastName
       email
+      phone
+      createdAt
+      numberOfOrders
+      amountSpent {
+        amount
+        currencyCode
+      }
     }
   }
 }
@@ -51,6 +58,10 @@ query {
       title
       handle
       status
+      vendor
+      productType
+      totalInventory
+      createdAt
     }
   }
 }
