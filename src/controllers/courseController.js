@@ -35,18 +35,112 @@ export const getCourses = async (
   next
 ) => {
   try {
-    const courses = await Course.find({
+
+    const {
+      search = "",
+      status = "",
+      fromDate = "",
+      toDate = "",
+      page = 1,
+      limit = 5,
+    } = req.query;
+
+    const query = {
       merchantId:
         req.user.merchantId,
+    };
+
+    /* SEARCH */
+
+    if (search) {
+      query.$or = [
+        {
+          title: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          instructorName: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          category: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ];
+    }
+
+    /* STATUS */
+
+    if (status) {
+      query.status = status;
+    }
+
+    /* DATE */
+
+    if (
+      fromDate ||
+      toDate
+    ) {
+
+      query.createdAt = {};
+
+      if (fromDate) {
+        query.createdAt.$gte =
+          new Date(fromDate);
+      }
+
+      if (toDate) {
+
+        const endDate =
+          new Date(toDate);
+
+        endDate.setHours(
+          23,
+          59,
+          59,
+          999
+        );
+
+        query.createdAt.$lte =
+          endDate;
+      }
+    }
+
+    const total =
+      await Course.countDocuments(
+        query
+      );
+
+    const courses =
+      await Course.find(query)
+        .sort({
+          createdAt: -1,
+        })
+        .skip(
+          (page - 1) * limit
+        )
+        .limit(Number(limit));
+
+    res.json({
+      success: true,
+      data: courses,
+      pagination: {
+        total,
+        page: Number(page),
+        limit: Number(limit),
+        totalPages:
+          Math.ceil(
+            total / limit
+          ),
+      },
     });
 
-    res.json(
-      new ApiResponse(
-        200,
-        courses,
-        "Courses fetched successfully"
-      )
-    );
   } catch (error) {
     next(error);
   }
