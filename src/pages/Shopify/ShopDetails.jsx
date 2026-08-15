@@ -192,7 +192,7 @@ const ShopDetails = () => {
 
         {/* Customers */}
 
-        {/* <div className="page-container">
+        <div className="page-container">
           <h2 className="text-xl font-semibold mb-4">
             Customers
           </h2>
@@ -201,44 +201,71 @@ const ShopDetails = () => {
             <table className="common-table">
               <thead className="table-header">
                 <tr>
-                  <th className="table-th">
-                    Name
-                  </th>
-
-                  <th className="table-th">
-                    Email
-                  </th>
+                  <th className="table-th">Name</th>
+                  <th className="table-th">Email</th>
+                  <th className="table-th">Phone</th>
+                  <th className="table-th">Orders</th>
+                  <th className="table-th">Spent</th>
+                  <th className="table-th">Created</th>
                 </tr>
               </thead>
 
               <tbody>
-                {customers.map(
-                  ({ node }) => (
+                {customers?.length > 0 ? (
+                  customers.map(({ node }) => (
                     <tr
                       key={node.id}
                       className="table-row"
                     >
                       <td className="table-td">
-                        {node.firstName}{" "}
+                        {node.firstName} {node.lastName}
+                      </td>
+
+                      <td className="table-td">
+                        {node.email || "-"}
+                      </td>
+
+                      <td className="table-td">
+                        {node.phone || "-"}
+                      </td>
+
+                      <td className="table-td">
+                        {node.numberOfOrders}
+                      </td>
+
+                      <td className="table-td">
+                        {node.amountSpent?.amount}{" "}
                         {
-                          node.lastName
+                          node.amountSpent
+                            ?.currencyCode
                         }
                       </td>
 
                       <td className="table-td">
-                        {node.email}
+                        {new Date(
+                          node.createdAt
+                        ).toLocaleDateString()}
                       </td>
                     </tr>
-                  )
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="6"
+                      className="text-center py-8"
+                    >
+                      No Customers Found
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
           </div>
-        </div> */}
+        </div>
 
         {/* Products */}
 
-        {/* <div className="page-container">
+        <div className="page-container">
           <h2 className="text-xl font-semibold mb-4">
             Products
           </h2>
@@ -247,23 +274,19 @@ const ShopDetails = () => {
             <table className="common-table">
               <thead className="table-header">
                 <tr>
-                  <th className="table-th">
-                    Product
-                  </th>
-
-                  <th className="table-th">
-                    Handle
-                  </th>
-
-                  <th className="table-th">
-                    Status
-                  </th>
+                  <th className="table-th">Product</th>
+                  <th className="table-th">Handle</th>
+                  <th className="table-th">Vendor</th>
+                  <th className="table-th">Type</th>
+                  <th className="table-th">Inventory</th>
+                  <th className="table-th">Status</th>
+                  <th className="table-th">Created</th>
                 </tr>
               </thead>
 
               <tbody>
-                {products.map(
-                  ({ node }) => (
+                {products?.length > 0 ? (
+                  products.map(({ node }) => (
                     <tr
                       key={node.id}
                       className="table-row"
@@ -277,16 +300,51 @@ const ShopDetails = () => {
                       </td>
 
                       <td className="table-td">
-                        {node.status}
+                        {node.vendor}
+                      </td>
+
+                      <td className="table-td">
+                        {node.productType || "-"}
+                      </td>
+
+                      <td className="table-td">
+                        {node.totalInventory}
+                      </td>
+
+                      <td className="table-td">
+                        <span
+                          className={
+                            node.status ===
+                              "ACTIVE"
+                              ? "status-active"
+                              : "status-inactive"
+                          }
+                        >
+                          {node.status}
+                        </span>
+                      </td>
+
+                      <td className="table-td">
+                        {new Date(
+                          node.createdAt
+                        ).toLocaleDateString()}
                       </td>
                     </tr>
-                  )
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="7"
+                      className="text-center py-8"
+                    >
+                      No Products Found
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
           </div>
-        </div> */}
-
+        </div>
       </div>
     </AppLayout>
   );
