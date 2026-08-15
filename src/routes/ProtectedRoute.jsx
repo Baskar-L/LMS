@@ -38,7 +38,7 @@ const ProtectedRoute = ({
   if (!isAuthenticated) {
     return (
       <Navigate
-        to="/login"
+        to="/"
         replace
       />
     );
